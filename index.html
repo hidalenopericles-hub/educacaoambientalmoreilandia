@@ -1,0 +1,989 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoAção | EREM Presidente Médici</title>
+
+    <style>
+        :root {
+            --verde: #16794b;
+            --verde-claro: #22a06b;
+            --fundo: #f4f8f5;
+            --branco: #ffffff;
+            --texto: #183329;
+            --cinza: #65776e;
+            --borda: #dce9e0;
+            --vermelho: #a33225;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--fundo);
+            color: var(--texto);
+        }
+
+        /* CABEÇALHO */
+        header {
+            background: linear-gradient(120deg, #11643e, #2ba66d);
+            color: white;
+            padding: 25px 20px;
+        }
+
+        .cabecalho {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 34px;
+            background: #ffffff25;
+            padding: 10px;
+            border-radius: 14px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        .escola {
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        header p {
+            margin: 7px 0 0;
+            color: #e0f4e7;
+        }
+
+        /* CONTEÚDO */
+        main {
+            max-width: 1100px;
+            margin: 24px auto;
+            padding: 0 16px;
+        }
+
+        /* MENU */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+
+        nav button {
+            border: 1px solid var(--borda);
+            background: white;
+            color: var(--verde);
+            padding: 11px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: var(--verde);
+            color: white;
+            border-color: var(--verde);
+        }
+
+        /* ABAS */
+        .pagina {
+            display: none;
+        }
+
+        .pagina.active {
+            display: block;
+        }
+
+        /* CARTÕES */
+        .cartoes {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(190px, 1fr));
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .cartao,
+        .painel {
+            background: white;
+            border: 1px solid var(--borda);
+            border-radius: 15px;
+            padding: 19px;
+            box-shadow: 0 3px 12px #153d2510;
+        }
+
+        .icone-estatistica {
+            font-size: 25px;
+        }
+
+        .rotulo-estatistica {
+            color: var(--cinza);
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        .valor-estatistica {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 5px;
+            color: var(--verde);
+        }
+
+        /* COLUNAS */
+        .duas-colunas {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 16px;
+        }
+
+        .painel h2 {
+            font-size: 20px;
+            margin: 0 0 16px;
+        }
+
+        /* FORMULÁRIOS */
+        form {
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 14px;
+            display: grid;
+            gap: 6px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #cbdacf;
+            border-radius: 9px;
+            font: inherit;
+            background: white;
+            color: var(--texto);
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 2px solid #8dd5ad;
+            border-color: var(--verde);
+        }
+
+        .botao-principal {
+            background: var(--verde);
+            color: white;
+            border: 0;
+            padding: 12px 15px;
+            border-radius: 9px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .botao-principal:hover {
+            background: #105d39;
+        }
+
+        .botao-excluir {
+            background: #fff0ee;
+            color: var(--vermelho);
+            border: 0;
+            padding: 7px 10px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        /* TABELAS */
+        .tabela-responsiva {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 11px 8px;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        th {
+            color: var(--cinza);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .vazio {
+            color: var(--cinza);
+            padding: 15px 0;
+        }
+
+        .texto-pequeno {
+            font-size: 13px;
+            color: var(--cinza);
+        }
+
+        /* DICAS */
+        .dica {
+            background: #eaf7ef;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .dica strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* RODAPÉ */
+        footer {
+            text-align: center;
+            color: var(--cinza);
+            padding: 25px 16px;
+            font-size: 13px;
+        }
+
+        footer strong {
+            color: var(--verde);
+        }
+
+        /* CELULARES */
+        @media (max-width: 700px) {
+            .duas-colunas {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            .cabecalho {
+                align-items: flex-start;
+            }
+
+            nav button {
+                flex: 1 1 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CABEÇALHO DO SISTEMA -->
+    <header>
+        <div class="cabecalho">
+
+            <div class="marca">
+                <div class="logo">🌱</div>
+                
+                
+                    <div>
+                    <h1>EcoAção</h1>
+
+                    <p>
+                        Sistema de Educação e Gestão Ambiental
+                    </p>
+
+                    <div class="escola">
+                        EREM Presidente Médici
+                        — Moreilândia-PE
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                🌎 Pequenas ações, grandes mudanças!
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+
+        <!-- MENU DE NAVEGAÇÃO -->
+        <nav aria-label="Menu principal">
+
+            <button class="active" data-pagina="inicio">
+                🏡 Início
+            </button>
+
+            <button data-pagina="acoes">
+                🌳 Ações ambientais
+            </button>
+
+            <button data-pagina="residuos">
+                ♻️ Resíduos reciclados
+            </button>
+
+            <button data-pagina="dicas">
+                💡 Dicas sustentáveis
+            </button>
+
+        </nav>
+
+        <!-- ABA INÍCIO -->
+        <section id="inicio" class="pagina active">
+
+            <div class="cartoes">
+
+                <div class="cartao">
+                    <div class="icone-estatistica">🌳</div>
+
+                    <div class="rotulo-estatistica">
+                        Ações registradas
+                    </div>
+
+                    <div
+                        class="valor-estatistica"
+                        id="totalAcoes"
+                    >
+                        0
+                    </div>
+                </div>
+
+                <div class="cartao">
+                    <div class="icone-estatistica">♻️</div>
+
+                    <div class="rotulo-estatistica">
+                        Resíduos reciclados
+                    </div>
+
+                    <div class="valor-estatistica">
+                        <span id="totalKg">0</span> kg
+                    </div>
+                </div>
+
+                <div class="cartao">
+                    <div class="icone-estatistica">🤝</div>
+
+                    <div class="rotulo-estatistica">
+                        Tipos de ações
+                    </div>
+
+                    <div
+                        class="valor-estatistica"
+                        id="tiposAcoes"
+                    >
+                        0
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="duas-colunas">
+
+                <div class="painel">
+                    <h2>🌿 Sobre o EcoAção</h2>
+
+                    <p>
+                        O EcoAção é um sistema desenvolvido para
+                        incentivar a educação ambiental na
+                        EREM Presidente Médici, em Moreilândia-PE.
+                    </p>
+
+                    <p>
+                        Com ele, é possível registrar atividades
+                        ambientais, acompanhar a reciclagem e
+                        estimular práticas sustentáveis na escola.
+                    </p>
+
+                    <p class="texto-pequeno">
+                        Os dados são armazenados no navegador
+                        deste computador.
+                    </p>
+                </div>
+
+                <div class="painel">
+                    <h2>🎯 Nossas metas</h2>
+
+                    <div class="dica">
+                        <strong>🌱 Reduzir</strong>
+                        Diminuir o consumo e evitar desperdícios.
+                    </div>
+
+                    <div class="dica">
+                        <strong>🔄 Reutilizar</strong>
+                        Aproveitar materiais antes de descartá-los.
+                    </div>
+
+                    <div class="dica">
+                        <strong>♻️ Reciclar</strong>
+                        Separar corretamente os resíduos.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ABA AÇÕES AMBIENTAIS -->
+        <section id="acoes" class="pagina">
+
+            <div class="duas-colunas">
+
+                <div class="painel">
+                    <h2>Registrar ação ambiental</h2>
+
+                    <form id="formAcao">
+
+                        <label for="nomeAcao">
+                            Nome da ação
+
+                            <input
+                                id="nomeAcao"
+                                type="text"
+                                placeholder="Ex.: Plantio de mudas"
+                                maxlength="80"
+                                required
+                            >
+                        </label>
+
+                        <label for="tipoAcao">
+                            Tipo de ação
+
+                            <select id="tipoAcao" required>
+                                <option value="">
+                                    Selecione
+                                </option>
+
+                                <option>Plantio de árvores</option>
+                                <option>Coleta seletiva</option>
+                                <option>Limpeza de espaços</option>
+                                <option>Educação ambiental</option>
+                                <option>Economia de água</option>
+                                <option>Outra ação</option>
+                            </select>
+                        </label>
+
+                        <label for="dataAcao">
+                            Data da ação
+
+                            <input
+                                id="dataAcao"
+                                type="date"
+                                required
+                            >
+                        </label>
+
+                        <label for="responsavel">
+                            Responsável ou turma
+
+                            <input
+                                id="responsavel"
+                                type="text"
+                                placeholder="Ex.: Turma do 2º ano"
+                                maxlength="80"
+                            >
+                        </label>
+
+                        <label for="descricao">
+                            Descrição da atividade
+
+                            <textarea
+                                id="descricao"
+                                rows="3"
+                                placeholder="Descreva a atividade realizada"
+                            ></textarea>
+                        </label>
+
+                        <button
+                            class="botao-principal"
+                            type="submit"
+                        >
+                            Salvar ação
+                        </button>
+
+                    </form>
+                </div>
+
+                <div class="painel">
+                    <h2>Histórico de ações</h2>
+
+                    <div class="tabela-responsiva">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Ação</th>
+                                    <th>Tipo</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="listaAcoes"></tbody>
+                        </table>
+                    </div>
+
+                    <p id="vazioAcoes" class="vazio">
+                        Nenhuma ação cadastrada ainda.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ABA RESÍDUOS RECICLADOS -->
+        <section id="residuos" class="pagina">
+
+            <div class="duas-colunas">
+
+                <div class="painel">
+                    <h2>Registrar resíduos reciclados</h2>
+
+                    <form id="formResiduo">
+
+                        <label for="tipoResiduo">
+                            Tipo de resíduo
+
+                            <select id="tipoResiduo" required>
+                                <option value="">
+                                    Selecione
+                                </option>
+
+                                <option>Papel</option>
+                                <option>Plástico</option>
+                                <option>Vidro</option>
+                                <option>Metal</option>
+                                <option>Eletrônicos</option>
+                                <option>Outros</option>
+                            </select>
+                        </label>
+
+                        <label for="quantidade">
+                            Quantidade em quilogramas (kg)
+
+                            <input
+                                id="quantidade"
+                                type="number"
+                                min="0.01"
+                                step="0.01"
+                                placeholder="Ex.: 2,5"
+                                required
+                            >
+                        </label>
+
+                        <label for="dataResiduo">
+                            Data da coleta
+
+                            <input
+                                id="dataResiduo"
+                                type="date"
+                                required
+                            >
+                        </label>
+
+                        <label for="obsResiduo">
+                            Observação
+
+                            <input
+                                id="obsResiduo"
+                                type="text"
+                                maxlength="100"
+                                placeholder="Ex.: coleta na escola"
+                            >
+                        </label>
+
+                        <button
+                            class="botao-principal"
+                            type="submit"
+                        >
+                            Registrar resíduos
+                        </button>
+
+                    </form>
+                </div>
+
+                <div class="painel">
+                    <h2>Histórico de reciclagem</h2>
+
+                    <div class="tabela-responsiva">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Material</th>
+                                    <th>Kg</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="listaResiduos"></tbody>
+                        </table>
+                    </div>
+
+                    <p id="vazioResiduos" class="vazio">
+                        Nenhum resíduo registrado ainda.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ABA DICAS SUSTENTÁVEIS -->
+        <section id="dicas" class="pagina">
+
+            <div class="painel">
+                <h2>💚 Atitudes que ajudam o planeta</h2>
+
+                <div class="dica">
+                    <strong>💧 Economize água</strong>
+                    Feche a torneira ao escovar os dentes
+                    e avise sobre vazamentos.
+                </div>
+
+                <div class="dica">
+                    <strong>💡 Economize energia</strong>
+                    Apague as luzes ao sair e aproveite
+                    a iluminação natural.
+                </div>
+
+                <div class="dica">
+                    <strong>♻️ Separe os resíduos</strong>
+                    Separe papel, plástico, vidro e metal
+                    conforme as orientações da coleta local.
+                </div>
+
+                <div class="dica">
+                    <strong>🌱 Cuide das plantas</strong>
+                    Plante espécies adequadas ao local
+                    e cuide das mudas regularmente.
+                </div>
+
+                <div class="dica">
+                    <strong>🛍️ Evite descartáveis</strong>
+                    Use garrafas, copos e sacolas
+                    reutilizáveis sempre que possível.
+                </div>
+
+                <div class="dica">
+                    <strong>🚶 Mobilidade sustentável</strong>
+                    Quando for seguro e viável,
+                    caminhe, pedale ou compartilhe transporte.
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <strong>EcoAção | EREM Presidente Médici</strong>
+
+        <p>
+            Moreilândia-PE
+        </p>
+
+        Educação ambiental começa com atitudes diárias 🌎
+    </footer>
+
+    <script>
+        // ==========================================
+        // 1. FUNÇÕES E ARMAZENAMENTO
+        // ==========================================
+
+        const $ = (id) => document.getElementById(id);
+
+        function lerDados(chave) {
+            try {
+                return JSON.parse(localStorage.getItem(chave)) || [];
+            } catch (erro) {
+                return [];
+            }
+        }
+
+        let acoes = lerDados("eco_acoes");
+        let residuos = lerDados("eco_residuos");
+
+        // Usa a data local do computador.
+        const agora = new Date();
+
+        const dataHoje =
+            agora.getFullYear() + "-" +
+            String(agora.getMonth() + 1).padStart(2, "0") + "-" +
+            String(agora.getDate()).padStart(2, "0");
+
+        $("dataAcao").value = dataHoje;
+        $("dataResiduo").value = dataHoje;
+
+        // ==========================================
+        // 2. NAVEGAÇÃO ENTRE AS ABAS
+        // ==========================================
+
+        document.querySelectorAll("nav button").forEach((botao) => {
+            botao.addEventListener("click", () => {
+
+                document.querySelectorAll("nav button").forEach((item) => {
+                    item.classList.toggle("active", item === botao);
+                });
+
+                document.querySelectorAll(".pagina").forEach((pagina) => {
+                    pagina.classList.toggle(
+                        "active",
+                        pagina.id === botao.dataset.pagina
+                    );
+                });
+
+            });
+        });
+
+        // ==========================================
+        // 3. FUNÇÕES AUXILIARES
+        // ==========================================
+
+        // Evita que textos digitados sejam interpretados como HTML.
+        function escapar(texto) {
+            return String(texto ?? "").replace(/[&<>"']/g, (caractere) => {
+                const entidades = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                };
+
+                return entidades[caractere];
+            });
+        }
+
+        function formatarData(data) {
+            if (!data) return "—";
+
+            const [ano, mes, dia] = data.split("-");
+
+            return `${dia}/${mes}/${ano}`;
+        }
+
+        function salvarDados() {
+            localStorage.setItem(
+                "eco_acoes",
+                JSON.stringify(acoes)
+            );
+
+            localStorage.setItem(
+                "eco_residuos",
+                JSON.stringify(residuos)
+            );
+
+            atualizarSistema();
+        }
+
+        // ==========================================
+        // 4. CADASTRO DE AÇÕES AMBIENTAIS
+        // ==========================================
+
+        $("formAcao").addEventListener("submit", (evento) => {
+            evento.preventDefault();
+
+            const nome = $("nomeAcao").value.trim();
+
+            if (!nome) {
+                alert("Informe o nome da ação ambiental.");
+                return;
+            }
+
+            const novaAcao = {
+                id: Date.now(),
+                nome: nome,
+                tipo: $("tipoAcao").value,
+                data: $("dataAcao").value,
+                responsavel: $("responsavel").value.trim(),
+                descricao: $("descricao").value.trim()
+            };
+
+            acoes.unshift(novaAcao);
+
+            salvarDados();
+
+            evento.target.reset();
+
+            $("dataAcao").value = dataHoje;
+
+            alert("Ação ambiental registrada com sucesso!");
+        });
+
+        // ==========================================
+        // 5. CADASTRO DE RESÍDUOS RECICLADOS
+        // ==========================================
+
+        $("formResiduo").addEventListener("submit", (evento) => {
+            evento.preventDefault();
+
+            const quantidade = Number($("quantidade").value);
+
+            if (!Number.isFinite(quantidade) || quantidade <= 0) {
+                alert("Informe uma quantidade válida em kg.");
+                return;
+            }
+
+            const novoResiduo = {
+                id: Date.now(),
+                tipo: $("tipoResiduo").value,
+                kg: quantidade,
+                data: $("dataResiduo").value,
+                observacao: $("obsResiduo").value.trim()
+            };
+
+            residuos.unshift(novoResiduo);
+
+            salvarDados();
+
+            evento.target.reset();
+
+            $("dataResiduo").value = dataHoje;
+
+            alert("Registro de reciclagem salvo com sucesso!");
+        });
+
+        // ==========================================
+        // 6. EXCLUIR REGISTROS
+        // ==========================================
+
+        function excluirAcao(id) {
+            const confirmar = confirm(
+                "Deseja realmente excluir esta ação?"
+            );
+
+            if (!confirmar) return;
+
+            acoes = acoes.filter((acao) => acao.id !== id);
+
+            salvarDados();
+        }
+
+        function excluirResiduo(id) {
+            const confirmar = confirm(
+                "Deseja realmente excluir este registro?"
+            );
+
+            if (!confirmar) return;
+
+            residuos = residuos.filter((residuo) => residuo.id !== id);
+
+            salvarDados();
+        }
+
+        // ==========================================
+        // 7. ATUALIZAR PAINEL E TABELAS
+        // ==========================================
+
+        function atualizarSistema() {
+
+            // Total de ações ambientais.
+            $("totalAcoes").textContent = acoes.length;
+
+            // Soma dos quilogramas registrados.
+            const totalQuilos = residuos.reduce(
+                (soma, residuo) => soma + Number(residuo.kg || 0),
+                0
+            );
+
+            $("totalKg").textContent =
+                totalQuilos.toLocaleString("pt-BR", {
+                    maximumFractionDigits: 2
+                });
+
+            // Número de categorias de ações diferentes.
+            const tiposDiferentes = new Set(
+                acoes.map((acao) => acao.tipo)
+            );
+
+            $("tiposAcoes").textContent = tiposDiferentes.size;
+
+            // Monta a tabela de ações.
+            $("listaAcoes").innerHTML = acoes.map((acao) => `
+                <tr>
+                    <td>${formatarData(acao.data)}</td>
+
+                    <td>
+                        ${escapar(acao.nome)}
+                        <br>
+                        <span class="texto-pequeno">
+                            ${escapar(acao.responsavel)}
+                        </span>
+                    </td>
+
+                    <td>${escapar(acao.tipo)}</td>
+
+                    <td>
+                        <button
+                            class="botao-excluir"
+                            onclick="excluirAcao(${Number(acao.id)})"
+                        >
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
+
+            // Monta a tabela de resíduos.
+            $("listaResiduos").innerHTML = residuos.map((residuo) => `
+                <tr>
+                    <td>${formatarData(residuo.data)}</td>
+
+                    <td>${escapar(residuo.tipo)}</td>
+
+                    <td>
+                        ${Number(residuo.kg).toLocaleString("pt-BR", {
+                            maximumFractionDigits: 2
+                        })}
+                    </td>
+
+                    <td>
+                        <button
+                            class="botao-excluir"
+                            onclick="excluirResiduo(${Number(residuo.id)})"
+                        >
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
+
+            // Mensagens para tabelas vazias.
+            $("vazioAcoes").style.display =
+                acoes.length ? "none" : "block";
+
+            $("vazioResiduos").style.display =
+                residuos.length ? "none" : "block";
+        }
+
+        // ==========================================
+        // 8. INICIALIZAÇÃO
+        // ==========================================
+
+        atualizarSistema();
+    </script>
+
+</body>
+</html>
